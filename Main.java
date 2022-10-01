@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -39,5 +40,45 @@ public class Main {
                 .distinct()
                 .peek(System.out::println)
                 .count());
-    }
+
+                System.out.println("---------------------------");
+
+        Employee matt = new Employee("Matte Azul", 26);
+        Employee name = new Employee("Name", 30);
+        Employee blue = new Employee("Azule Blue", 40);
+        Employee random = new Employee("Skull Krusher", 13);
+
+        Department hr = new Department("Human Resources");
+        hr.addEmployee(random);
+        hr.addEmployee(blue);
+        hr.addEmployee(name);
+        Department accounting = new Department("Accounting");
+        accounting.addEmployee(matt);
+
+        List<Department> departments = new ArrayList<>();
+        departments.add(hr);
+        departments.add(accounting);
+
+        departments.stream()
+            .flatMap(department -> department.getEmployees().stream())
+            .forEach(System.out::println);
+        System.out.println("---------------------------");
+        // List<String> sortedGNumbers = bingoNumbers
+        //         .stream()    
+        //         .map(String::toUpperCase)
+        //         .filter(s -> s.startsWith("G"))
+        //         .sorted()
+        //         .collect(Collectors.toList());
+
+          List<String> sortedGNumbers = bingoNumbers
+                    .stream()
+                    .map(String::toUpperCase)
+                    .filter(s -> s.startsWith("G"))
+                    .sorted()
+                    .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+
+        for(String s : sortedGNumbers) {
+            System.out.println(s);
+        }
+    }   
 }
